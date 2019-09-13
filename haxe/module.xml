@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<module>
+    <resources>
+        <resource path="/haxe/ui/editors/code/_module/styles" prefix="haxeui-code-editor/styles" />
+    </resources>
+    
+    <components>
+        <class name="haxe.ui.editors.code.CodeEditor" />
+    </components>
+    
+    <themes>
+        <default>
+            <style resource="haxeui-code-editor/styles/code-editor.css" />
+        </default>
+    </themes>
+</module>
