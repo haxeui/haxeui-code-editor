@@ -2,9 +2,9 @@ package haxe.ui.editors.code.monaco;
 import js.Browser;
 
 class MonacoLoader {
-    private var _loaded:Bool = false;
-    private var _loading:Bool = false;
-    private var _callbacks:Array<Void->Void> = [];
+    private static var _loaded:Bool = false;
+    private static var _loading:Bool = false;
+    private static var _callbacks:Array<Void->Void> = [];
     
     private var _version:String = null;
     
@@ -32,7 +32,9 @@ class MonacoLoader {
                         _loaded = true;
                         
                         for (f in _callbacks) {
-                            f();
+                            if (f != null) {
+                                f();
+                            }
                         }
                     });
                 }

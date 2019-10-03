@@ -1,9 +1,11 @@
 package haxe.ui.editors.code.monaco;
 
 import haxe.ui.core.Component;
+import haxe.ui.core.InteractiveComponent;
+import haxe.ui.events.UIEvent;
 import monaco.Editor.IStandaloneCodeEditor;
 
-class MonacoCodeEditor extends Component {
+class MonacoCodeEditor extends InteractiveComponent {
     private static var loader:MonacoLoader = new MonacoLoader();
     
     private var _editor:IStandaloneCodeEditor;
@@ -38,13 +40,22 @@ class MonacoCodeEditor extends Component {
     }
     
     private function onMonacoReady() {
-        trace("ready!");
         _editor = Monaco.editor.create(this.element, {
             renderLineHighlight: "none",
-            language: _language
+            language: _language,
+            fontSize: 12
         });
         _editor.setValue(_text);
-        
+        if (_focus == true) {
+            _editor.focus();
+        }
+
+        _editor.getModel().onDidChangeContent(function(e) {
+            dispatch(new UIEvent(UIEvent.CHANGE));
+        });
+        _editor.onDidChangeCursorPosition(function(e) {
+            dispatch(new UIEvent(UIEvent.CHANGE));
+        });
         invalidateComponent();
     }
 
@@ -71,5 +82,29 @@ class MonacoCodeEditor extends Component {
             });
         }
         return b;
+    }
+    
+    private override function set_focus(value:Bool):Bool {
+        _focus = value;
+        if (_editor != null && _focus == true) {
+            Toolkit.callLater(function() {
+                _editor.focus();
+            });
+        }
+        return value;
+    }
+    
+    public var caretPosition(get, set):Position;
+    private function get_caretPosition():Position {
+        var modelPos = _editor.getPosition();
+        return new Position(modelPos.lineNumber, modelPos.column);
+    }
+    private function set_caretPosition(value:Position):Position {
+        _editor.setPosition({
+            readonly: false,
+            lineNumber: value.line,
+            column: value.column
+        }); 
+        return value;
     }
 }
