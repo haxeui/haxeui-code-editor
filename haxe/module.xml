@@ -2,6 +2,7 @@
 <module>
     <resources>
         <resource path="/haxe/ui/editors/code/_module/styles" prefix="haxeui-code-editor/styles" />
+        <resource path="/haxe/ui/editors/code/_module/languages" prefix="haxeui-code-editor/languages" />
     </resources>
     
     <components>

@@ -4,6 +4,7 @@ import haxe.ui.core.Component;
 import haxe.ui.core.InteractiveComponent;
 import haxe.ui.events.UIEvent;
 import monaco.Editor.IStandaloneCodeEditor;
+import monaco.Languages.IMonarchLanguage;
 
 class MonacoCodeEditor extends InteractiveComponent {
     private static var loader:MonacoLoader = new MonacoLoader();
@@ -40,6 +41,7 @@ class MonacoCodeEditor extends InteractiveComponent {
     }
     
     private function onMonacoReady() {
+        addLanguage(_language);
         _editor = Monaco.editor.create(this.element, {
             renderLineHighlight: "none",
             language: _language,
@@ -67,9 +69,29 @@ class MonacoCodeEditor extends InteractiveComponent {
     private function set_language(value:String):String {
         _language = value;
         if (_editor != null) {
+            addLanguage(value);
             Monaco.editor.setModelLanguage(_editor.getModel(), _language);
         }
         return value;
+    }
+    
+    private function addLanguage(id) {
+        if (hasLanguage(id) == false) {
+            var lang = LanguageParser.get(id);
+            if (lang != null) {
+                Monaco.languages.register( { id: id } );
+                Monaco.languages.setMonarchTokensProvider(id, lang);
+            }
+        }
+    }
+    
+    public function hasLanguage(id:String):Bool {
+        for (l in Monaco.languages.getLanguages()) {
+            if (l.id == id) {
+                return true;
+            }
+        }
+        return false;
     }
     
     public override function validateComponentLayout():Bool {
