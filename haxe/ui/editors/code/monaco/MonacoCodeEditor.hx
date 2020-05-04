@@ -26,7 +26,7 @@ class MonacoCodeEditor extends InteractiveComponent {
     private override function set_text(value:String):String {
         //super.set_text(value);
         _text = value;
-        _text = StringTools.replace(_text, "\\n", "\n");
+        //_text = StringTools.replace(_text, "\\n", "\n");
         _text = StringTools.replace(_text, "\\t", "    ");
         if (_editor != null) {
             _editor.setValue(_text);
@@ -42,11 +42,33 @@ class MonacoCodeEditor extends InteractiveComponent {
     
     private function onMonacoReady() {
         addLanguage(_language);
-        _editor = Monaco.editor.create(this.element, {
+        
+        var options:Dynamic = {
             renderLineHighlight: "none",
             language: _language,
-            fontSize: 12
-        });
+            fontSize: 12,
+            contextmenu: false,
+            //theme: "vs-dark"
+            readOnly: _readOnly,
+            scrollbar: {
+                useShadows: false,
+                vertical: 'visible',
+                horizontal: 'visible',
+                verticalScrollbarSize: 10,
+                horizontalScrollbarSize: 10
+            }
+        }
+        
+        if (_lineNumbers == false) {
+            options.lineNumbers = "off";
+            options.glyphMargin = false;
+            options.folding = false;
+            // Undocumented see https://github.com/Microsoft/vscode/issues/30795#issuecomment-410998882
+            options.lineDecorationsWidth = 0;
+            options.lineNumbersMinChars = 0;
+        }
+        
+        _editor = Monaco.editor.create(this.element, options);
         _editor.setValue(_text);
         if (_focus == true) {
             _editor.focus();
@@ -61,6 +83,11 @@ class MonacoCodeEditor extends InteractiveComponent {
         invalidateComponent();
     }
 
+    public var lineCount(get, null):Float;
+    private function get_lineCount():Float {
+        return _editor.getModel().getLineCount();
+    }
+    
     private var _language:String;
     public var language(get, set):String;
     private function get_language() {
@@ -127,6 +154,31 @@ class MonacoCodeEditor extends InteractiveComponent {
             lineNumber: value.line,
             column: value.column
         }); 
+        return value;
+    }
+    
+    private var _lineNumbers:Bool = true;
+    public var lineNumbers(get, set):Bool;
+    private function get_lineNumbers():Bool {
+        return _lineNumbers;
+    }
+    private function set_lineNumbers(value:Bool):Bool {
+        _lineNumbers = value;
+        return value;
+    }
+    
+    private var _readOnly:Bool = false;
+    public var readOnly(get, set):Bool;
+    private function get_readOnly():Bool {
+        return _readOnly;
+    }
+    private function set_readOnly(value:Bool):Bool {
+        _readOnly = value;
+        if (_editor != null) {
+            _editor.updateOptions({
+                readOnly: _readOnly
+            });
+        }
         return value;
     }
 }

@@ -7,6 +7,8 @@ import hx.widgets.styles.LexicalStates;
 class ScintillaEditor extends Component {
     private var _textCtrl:StyledTextCtrl = null;
     
+    public var readOnly:Bool;
+    
     public function new() {
         super();
         addClass("code-editor");
