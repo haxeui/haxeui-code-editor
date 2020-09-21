@@ -11,7 +11,7 @@
     
     <themes>
         <default>
-            <style resource="haxeui-code-editor/styles/code-editor.css" />
+            <style resource="haxeui-code-editor/styles/code-editor.css" priority="-2" />
         </default>
     </themes>
 </module>

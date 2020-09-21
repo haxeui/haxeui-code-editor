@@ -48,7 +48,7 @@ class MonacoCodeEditor extends InteractiveComponent {
             language: _language,
             fontSize: 12,
             contextmenu: false,
-            //theme: "vs-dark"
+            theme: _theme,
             readOnly: _readOnly,
             scrollbar: {
                 useShadows: false,
@@ -179,6 +179,23 @@ class MonacoCodeEditor extends InteractiveComponent {
                 readOnly: _readOnly
             });
         }
+        return value;
+    }
+
+    private var _theme:String = null;
+    public var theme(get, set):String;
+    private function get_theme():String {
+        return _theme;
+    }
+    private function set_theme(value:String):String {
+        _theme = value;
+        /*
+        if (_editor != null) {
+            _editor.updateOptions({
+                theme: _theme
+            });
+        }
+        */
         return value;
     }
 }
