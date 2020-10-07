@@ -2,6 +2,7 @@ package haxe.ui.editors.code.monaco;
 
 import haxe.ui.core.Component;
 import haxe.ui.core.InteractiveComponent;
+import haxe.ui.events.KeyboardEvent;
 import haxe.ui.events.UIEvent;
 import monaco.Editor.IStandaloneCodeEditor;
 import monaco.Languages.IMonarchLanguage;
@@ -27,7 +28,7 @@ class MonacoCodeEditor extends InteractiveComponent {
         //super.set_text(value);
         _text = value;
         //_text = StringTools.replace(_text, "\\n", "\n");
-        _text = StringTools.replace(_text, "\\t", "    ");
+        //_text = StringTools.replace(_text, "\\t", "    ");
         if (_editor != null) {
             _editor.setValue(_text);
         }
@@ -79,6 +80,9 @@ class MonacoCodeEditor extends InteractiveComponent {
         });
         _editor.onDidChangeCursorPosition(function(e) {
             dispatch(new UIEvent(UIEvent.CHANGE));
+        });
+        _editor.onKeyDown(function(e) {
+            dispatch(new KeyboardEvent(KeyboardEvent.KEY_DOWN));
         });
         invalidateComponent();
     }

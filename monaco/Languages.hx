@@ -75,7 +75,7 @@ typedef CompletionItem = {
 typedef CompletionList = {
 	@:optional
 	var isIncomplete : Bool;
-	var items : Array<CompletionItem>;
+	var suggestions : Array<CompletionItem>;
 };
 typedef CompletionContext = {
 	var triggerKind : SuggestTriggerKind;
