@@ -193,6 +193,7 @@ class MonacoCodeEditor extends InteractiveComponent {
     }
     private function set_theme(value:String):String {
         _theme = value;
+        Monaco.editor.setTheme(value);
         /*
         if (_editor != null) {
             _editor.updateOptions({
