@@ -64,8 +64,7 @@ class ScintillaEditor extends Component {
         }
         _language = value;
         
-        var styles = LexerStyles.instance.get(_language);
-        if (styles != null) {
+        if (LexerStyles.instance.hasStyles(_language)) {
             _lang = null;
             _currentLexer = _language;
             _textCtrl.lexerLanguage = _currentLexer;
@@ -258,7 +257,7 @@ class ScintillaEditor extends Component {
                 }
             }
         } else {
-            var styles = new LexerStyles().themeStyles(_currentLexer, _theme);
+            var styles = LexerStyles.instance.themeStyles(_currentLexer, _theme);
             
             //var styles = LexerStyles.instance.get(_currentLexer);
             if (styles != null) {
