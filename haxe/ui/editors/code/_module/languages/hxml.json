@@ -1,0 +1,57 @@
+[
+    {
+        "id": "keywords",
+        "rules": [
+        ]
+    },
+    {
+        "id": "types",
+        "rules": [
+            "^(-|--)\\w+"
+        ]
+    },
+    {
+        "id": "operators",
+        "rules": [
+        ]
+    },
+    {
+        "id": "brackets",
+        "rules": [
+            "[{}()\\[\\]]"
+        ]
+    },
+    {
+        "id": "numbers.float",
+        "rules": [
+            "\\d*\\.\\d+([eE][\\-+]?\\d+)?"
+        ]
+    },
+    {
+        "id": "numbers.hex",
+        "rules": [
+            "0[xX][0-9a-fA-F]+"
+        ]
+    },
+    {
+        "id": "numbers",
+        "restrictToWords": true,
+        "rules": [
+            "\\d+"
+        ]
+    },
+    {
+        "id": "strings",
+        "rules": [
+            "\"",
+            "'"
+        ]
+    },
+    {
+        "id": "comment",
+        "rules": [
+            "#.*$"
+        ]
+    }
+    
+]

@@ -1,0 +1,7 @@
+# this is only needed for hxWidgets, but there isnt a way to 
+# have an extraParams.hxml for each haxe target. It shouldnt
+# matter as its only a define and only means anything in hxWidgets
+# for now this is fine, but consider:
+#    https://github.com/HaxeFlixel/flixel/blob/dev/flixel/system/macros/FlxDefines.hx
+# at a later date    
+-D STYLEDTEXTCTRL 

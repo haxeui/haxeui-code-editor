@@ -1,0 +1,97 @@
+[
+    {
+        "id": "keywords",
+        "restrictToWords": true,
+        "rules": [
+            "try", "catch", "throw", "if", "return", "while", "for",
+            "break", "case", "default", "continue", "do",
+            "switch", "else", "...", "cast",
+            "untyped", "trace", "this", "super", "new", "var",
+            "function", "abstract", "class", "enum", "interface", "typedef",
+            "from", "to", "get", "set", "dynamic", "never", "null",
+            "public", "private", "static", "inline", "macro", "extern", "override",
+            "import", "package",
+            "true", "false", "in"
+        ]
+    },
+    {
+        "id": "types",
+        "restrictToWords": true,
+        "rules": [
+            "[A-Z][\\w\\$]*"
+        ]
+    },
+    {
+        "id": "operators",
+        "rules": [
+            "=", ">", "<", "!", "~", "?", ":", "==", "<=", ">=", "!=",
+            "&&", "||", "++", "--", "+", "-", "*", "/", "&", "|", "^", "%",
+            "<<", ">>", ">>>", "+=", "-=", "*=", "/=", "&=", "|=", "^=",
+            "%=", "<<=", ">>=", ">>>="
+        ]
+    },
+    {
+        "id": "brackets",
+        "rules": [
+            "[{}()\\[\\]]"
+        ]
+    },
+    {
+        "id": "annotations",
+        "rules": [
+            "@\\s*[a-zA-Z_\\$][\\w\\$]*",
+            "@:\\s*[a-zA-Z_\\$][\\w\\$]*"
+        ]
+    },
+    {
+        "id": "numbers.float",
+        "rules": [
+            "\\d*\\.\\d+([eE][\\-+]?\\d+)?"
+        ]
+    },
+    {
+        "id": "numbers.hex",
+        "rules": [
+            "0[xX][0-9a-fA-F]+"
+        ]
+    },
+    {
+        "id": "numbers",
+        "restrictToWords": true,
+        "rules": [
+            "[0-9]+"
+        ]
+    },
+    {
+        "id": "delimiters",
+        "rules": [
+            "[;,.]"
+        ]
+    },
+    {
+        "id": "strings",
+        "rules": [
+            "\"",
+            "'"
+        ]
+    },
+    {
+        "id": "comment.start",
+        "rules": [
+            "\\/\\*"
+        ]
+    },
+    {
+        "id": "comment.end",
+        "rules": [
+            "\\*/"
+        ]
+    },
+    {
+        "id": "comment",
+        "rules": [
+            "\\/\\/.*$"
+        ]
+    }
+    
+]

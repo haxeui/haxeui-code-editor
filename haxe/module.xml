@@ -3,6 +3,7 @@
     <resources>
         <resource path="/haxe/ui/editors/code/_module/styles" prefix="haxeui-code-editor/styles" />
         <resource path="/haxe/ui/editors/code/_module/languages" prefix="haxeui-code-editor/languages" />
+        <resource path="/haxe/ui/editors/code/_module/themes" prefix="haxeui-code-editor/themes" />
     </resources>
     
     <components>
@@ -11,7 +12,10 @@
     
     <themes>
         <default>
-            <style resource="haxeui-code-editor/styles/code-editor.css" priority="-2" />
+            <style resource="haxeui-code-editor/styles/default/code-editor.css" priority="-2" />
         </default>
+        <dark>
+            <style resource="haxeui-code-editor/styles/dark/code-editor.css" priority="-2" />
+        </dark>
     </themes>
 </module>

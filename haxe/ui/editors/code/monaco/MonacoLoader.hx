@@ -1,4 +1,5 @@
 package haxe.ui.editors.code.monaco;
+
 import js.Browser;
 
 class MonacoLoader {
@@ -22,13 +23,6 @@ class MonacoLoader {
                 scriptElement.onload = function(e) {
                     Require.config( { paths: { 'vs': 'monaco-editor-${_version}/min/vs' }} );
                     Require.require(['vs/editor/editor.main'], function() {
-                        /*
-                        Languages.register( { id: "haxe" } );
-                        Languages.setMonarchTokensProvider("haxe", Syntax.haxe());
-                        Languages.register( { id: "glsl" } );
-                        Languages.setMonarchTokensProvider("glsl", Syntax.glsl());
-                        */
-                        
                         _loaded = true;
                         
                         for (f in _callbacks) {

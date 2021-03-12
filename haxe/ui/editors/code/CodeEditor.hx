@@ -1,9 +1,15 @@
 package haxe.ui.editors.code;
+import haxe.ui.Toolkit;
 
-#if haxeui_html5
-    typedef CodeEditor = haxe.ui.editors.code.monaco.MonacoCodeEditor;
-#elseif haxeui_hxwidgets
-    typedef CodeEditor = haxe.ui.editors.code.scintilla.ScintillaEditor;
-#else
-    typedef CodeEditor = haxe.ui.components.TextArea;
-#end
+class CodeEditor extends CodeEditorImpl {
+    public function new() {
+        super();
+    }
+    
+    @:event(CodeEditorEvent.POSITION_CHANGE)       public var onPositionChange:CodeEditorEvent->Void;
+    
+    private override function onThemeChanged() {
+        super.onThemeChanged();
+        this.theme = Toolkit.theme;
+    }
+}

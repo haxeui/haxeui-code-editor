@@ -1,5 +1,6 @@
 package haxe.ui.editors.code.monaco;
 
+import haxe.ui.Toolkit;
 import haxe.ui.core.Component;
 import haxe.ui.core.InteractiveComponent;
 import haxe.ui.events.KeyboardEvent;
@@ -44,6 +45,10 @@ class MonacoCodeEditor extends InteractiveComponent {
     private function onMonacoReady() {
         addLanguage(_language);
         
+        if (_theme == null) {
+            _theme = mapThemeName(Toolkit.theme);
+        }
+        
         var options:Dynamic = {
             renderLineHighlight: "none",
             language: _language,
@@ -62,11 +67,7 @@ class MonacoCodeEditor extends InteractiveComponent {
         
         if (_lineNumbers == false) {
             options.lineNumbers = "off";
-            options.glyphMargin = false;
             options.folding = false;
-            // Undocumented see https://github.com/Microsoft/vscode/issues/30795#issuecomment-410998882
-            options.lineDecorationsWidth = 0;
-            options.lineNumbersMinChars = 0;
         }
         
         _editor = Monaco.editor.create(this.element, options);
@@ -79,7 +80,7 @@ class MonacoCodeEditor extends InteractiveComponent {
             dispatch(new UIEvent(UIEvent.CHANGE));
         });
         _editor.onDidChangeCursorPosition(function(e) {
-            dispatch(new UIEvent(UIEvent.CHANGE));
+            dispatch(new CodeEditorEvent(CodeEditorEvent.POSITION_CHANGE));
         });
         _editor.onKeyDown(function(e) {
             dispatch(new KeyboardEvent(KeyboardEvent.KEY_DOWN));
@@ -150,7 +151,7 @@ class MonacoCodeEditor extends InteractiveComponent {
     public var caretPosition(get, set):Position;
     private function get_caretPosition():Position {
         var modelPos = _editor.getPosition();
-        return new Position(modelPos.lineNumber, modelPos.column);
+        return new Position(Std.int(modelPos.lineNumber), Std.int(modelPos.column), Std.int(_editor.getModel().getOffsetAt(modelPos)));
     }
     private function set_caretPosition(value:Position):Position {
         _editor.setPosition({
@@ -168,6 +169,19 @@ class MonacoCodeEditor extends InteractiveComponent {
     }
     private function set_lineNumbers(value:Bool):Bool {
         _lineNumbers = value;
+        if (_editor != null) {
+            if (_lineNumbers == true) {
+                _editor.updateOptions({
+                    lineNumbers: "on",
+                    folding: true
+                });
+            } else {
+                _editor.updateOptions({
+                    lineNumbers: "off",
+                    folding: false
+                });
+            }
+        }
         return value;
     }
     
@@ -192,15 +206,19 @@ class MonacoCodeEditor extends InteractiveComponent {
         return _theme;
     }
     private function set_theme(value:String):String {
-        _theme = value;
-        Monaco.editor.setTheme(value);
-        /*
+        _theme = mapThemeName(value);
         if (_editor != null) {
-            _editor.updateOptions({
-                theme: _theme
-            });
+            Monaco.editor.setTheme(_theme);
         }
-        */
+        return value;
+    }
+    
+    private static function mapThemeName(value:String):String {
+        if (value == "dark") {
+            value = "vs-dark";
+        } else if (value == "default") {
+            value = "vs-light";
+        }
         return value;
     }
 }

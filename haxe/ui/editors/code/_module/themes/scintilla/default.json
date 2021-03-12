@@ -1,0 +1,38 @@
+{
+    "defaults": {
+        "foreground": "#000000",
+        "background": "#FFFFFF",
+        "caret": "#000000",
+        "selection": "#b7d4ff"
+    },
+    "formats": [
+        {
+            "foreground": "#0000ff",
+            "tags": ["keywords"]
+        },
+        {
+            "foreground": "#008080",
+            "tags": ["types"]
+        },
+        {
+            "foreground": "#09885a",
+            "tags": ["numbers", "numbers.float"]
+        },
+        {
+            "foreground": "#3030c0",
+            "tags": ["numbers.hex"]
+        },
+        {
+            "foreground": "#808080",
+            "tags": ["annotations"]
+        },
+        {
+            "foreground": "#008000",
+            "tags": ["comment"]
+        },
+        {
+            "foreground": "#a31515",
+            "tags": ["strings"]
+        }
+    ]
+}

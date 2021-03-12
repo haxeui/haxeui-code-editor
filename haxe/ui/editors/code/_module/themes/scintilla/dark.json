@@ -1,0 +1,38 @@
+{
+    "defaults": {
+        "foreground": "#dcdcdc",
+        "background": "#1E1E1E",
+        "caret": "#dcdcdc",
+        "selection": "#334d78"
+    },
+    "formats": [
+        {
+            "foreground": "#569cd6",
+            "tags": ["keywords"]
+        },
+        {
+            "foreground": "#3dc9b0",
+            "tags": ["types"]
+        },
+        {
+            "foreground": "#b5cea8",
+            "tags": ["numbers", "numbers.float"]
+        },
+        {
+            "foreground": "#5bb498",
+            "tags": ["numbers.hex"]
+        },
+        {
+            "foreground": "#cc6666",
+            "tags": ["annotations"]
+        },
+        {
+            "foreground": "#608b4e",
+            "tags": ["comment"]
+        },
+        {
+            "foreground": "#ce9178",
+            "tags": ["strings"]
+        }
+    ]
+}
